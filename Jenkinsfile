@@ -2,18 +2,11 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds-id')
         IMAGE_NAME = "turtlemonk473/webapp"
     }
 
     stages {
         stage('Build Docker Image') {
-            agent {
-                docker {
-                    image 'docker:latest'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
-                }
-            }
             steps {
                 sh 'docker build -t $IMAGE_NAME .'
             }
