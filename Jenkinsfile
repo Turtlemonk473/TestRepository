@@ -9,8 +9,9 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
-            }
+                url: 'https://github.com/Turtlemonk473/TestRepository.git',
+            branch: 'main',
+            credentialsId: 'github-pat'
         }
 
         stage('Build Docker Image') {
