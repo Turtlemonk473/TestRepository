@@ -2,15 +2,11 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds-id') // Jenkins secret
-        IMAGE_NAME = "kymaniambrose/webapp"
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds-id') // Jenkins credentials ID
+        IMAGE_NAME = "turtlemonk473/webapp"
     }
 
     stages {
-        stage('Clone Repo') {
-            steps {
-         git credentialsId: 'github-pat', url: 'https://github.com/Turtlemonk473/TestRepository.git', branch: 'main'
-        }
 
         stage('Build Docker Image') {
             steps {
@@ -32,7 +28,7 @@ pipeline {
 
         stage('Deploy Container') {
             steps {
-                sh "docker run -d -p 80:80 ${IMAGE_NAME}:latest"
+                sh "docker run -d -p 80:80 ${IMAGE_NAME}:latest || true"
             }
         }
     }
